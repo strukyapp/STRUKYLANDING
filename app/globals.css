@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@theme {
+    --color-spotify-green: #1DB954;
+    --color-coffee-medium: #8D6E63;
+    --color-coffee-dark: #5D4037;
+    --color-coffee-light: #D7CCC8;
+    --color-dark-bg: #0a0a0a;
+    --color-dark-card: #141414;
+    --color-accent-blue: #1E3A8A;
+    --color-accent-purple: #4C1D95;
+
+    --font-family-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+    --font-family-heading: var(--font-montserrat), system-ui, sans-serif;
+    
+    --font-family-inter: var(--font-inter);
+    --font-family-montserrat: var(--font-montserrat);
+}
+
+@layer base {
+    body {
+        background-color: var(--color-dark-bg);
+        color: white;
+        font-family: var(--font-family-sans);
+        overscroll-behavior-x: none;
+        overscroll-behavior-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    html {
+        /* Allowed vertical refresh while keeping horizontal rigidity */
+        overscroll-behavior-x: none;
+        overscroll-behavior-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-family-heading);
+    }
+}
+
+@layer components {
+    .glass-morphism {
+        @apply bg-black/60 shadow-2xl shadow-black/50 border-none;
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+
+    /* Reduce backdrop-blur on mobile for performance (except header) */
+    @media (max-width: 768px) {
+        .glass-morphism:not(header) {
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            @apply bg-black/80;
+        }
+        
+        /* Keep header blur as requested */
+        header.glass-morphism {
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+    }
+
+    .brand-whatsapp {
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    }
+
+    .btn-primary {
+        @apply bg-gradient-to-r from-coffee-medium to-coffee-dark text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-coffee-medium/20;
+    }
+
+    .btn-secondary {
+        @apply bg-transparent border border-coffee-medium/40 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 hover:bg-coffee-medium/10 hover:border-coffee-medium;
+    }
+
+    .card-dark {
+        @apply bg-dark-card rounded-2xl p-6 border border-white/5 transition-all duration-300 hover:border-coffee-medium/30 hover:bg-white/[0.02];
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-coffee-light via-coffee-medium to-[#B88C45];
+    }
+
+    .section-padding {
+        @apply py-16 md:py-24 px-4 md:px-12 lg:px-24;
+    }
+}
+
+@layer utilities {
+    .glow-text {
+        text-shadow: 0 0 20px rgba(215, 204, 200, 0.3);
+    }
+
+    .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+    }
+
+    /* === GPU-Accelerated CSS Animations (replacing Framer Motion JS) === */
+
+    /* Audio visualizer bars — pure CSS, GPU composited */
+    .visualizer-bar {
+        will-change: transform;
+        animation: visualizer-bounce 0.6s ease-in-out infinite alternate;
+    }
+    .visualizer-bar:nth-child(1) { animation-delay: 0s; }
+    .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+    .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+    .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+    .visualizer-bar:nth-child(5) { animation-delay: 0.2s; }
+    .visualizer-bar:nth-child(6) { animation-delay: 0.1s; }
+    .visualizer-bar:nth-child(7) { animation-delay: 0s; }
+
+    @keyframes visualizer-bounce {
+        0%   { transform: scaleY(0.3); }
+        100% { transform: scaleY(1); }
+    }
+
+    /* WhatsApp pulse ring — CSS only */
+    .pulse-ring {
+        will-change: transform, opacity;
+        animation: pulse-ring 2s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+        0%   { transform: scale(1); opacity: 0.5; }
+        50%  { transform: scale(1.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    /* Background orbs — CSS only, GPU composited */
+    .bg-orb-1 {
+        @apply bg-accent-blue/10;
+        will-change: transform;
+        animation: orb-float-1 15s linear infinite;
+    }
+    .bg-orb-2 {
+        @apply bg-accent-purple/10;
+        will-change: transform;
+        animation: orb-float-2 18s linear infinite;
+    }
+    .bg-orb-coffee {
+        @apply bg-coffee-medium/10;
+        will-change: transform;
+        animation: orb-float-3 20s linear infinite;
+    }
+    @keyframes orb-float-1 {
+        0%   { transform: scale(1) translate(0, 0); }
+        33%  { transform: scale(1.2) translate(50px, 30px); }
+        66%  { transform: scale(1.1) translate(20px, -10px); }
+        100% { transform: scale(1) translate(0, 0); }
+    }
+    @keyframes orb-float-2 {
+        0%   { transform: scale(1) translate(0, 0); }
+        33%  { transform: scale(1.3) translate(-40px, -50px); }
+        66%  { transform: scale(1.1) translate(-20px, 20px); }
+        100% { transform: scale(1) translate(0, 0); }
+    }
+    @keyframes orb-float-3 {
+        0%   { transform: scale(1) translate(0, 0); }
+        50%  { transform: scale(1.2) translate(-60px, 40px); }
+        100% { transform: scale(1) translate(0, 0); }
+    }
+
+    /* Progress bar shimmer — CSS only */
+    .progress-shimmer {
+        background-size: 200% 100%;
+        animation: progress-shimmer 3s linear infinite;
+    }
+    @keyframes progress-shimmer {
+        0%   { background-position: 0% 0%; }
+        100% { background-position: 200% 0%; }
+    }
+
+    /* Shimmer effect for cards — CSS only */
+    @keyframes shimmer {
+        100% { transform: translateX(100%); }
+    }
+    .animate-shimmer {
+        animation: shimmer 1.5s infinite;
+    }
+
+    /* === Reduce motion for accessibility & low-power mode === */
+    @media (prefers-reduced-motion: reduce) {
+        .visualizer-bar,
+        .pulse-ring,
+        .bg-orb-1,
+        .bg-orb-2,
+        .animate-float,
+        .animate-shimmer,
+        .progress-shimmer {
+            animation: none !important;
+        }
+    }
+
+    /* Custom Audio Player Styles */
+    .audio-player-custom {
+        @apply w-full h-12 rounded-full px-4 flex items-center gap-4 bg-white/5 border border-white/10;
+    }
+
+    .scarcity-banner {
+        @apply bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 text-amber-500;
+    }
+
+    .comparison-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 rounded-3xl overflow-hidden border border-white/10;
+    }
+
+    .comparison-col {
+        @apply p-8 md:p-10;
+    }
+    
+    .custom-scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .custom-scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+}
