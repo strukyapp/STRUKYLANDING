@@ -6,7 +6,7 @@ import { headers, cookies } from 'next/headers';
 import { sendMetaEvent } from '@/lib/meta-capi';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-    apiVersion: '2026-03-25.dahlia',
+    apiVersion: '2026-06-24.dahlia',
 });
 
 export default async function SuccessPage({ searchParams }: { searchParams: Promise<{ session_id?: string }> }) {

@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 import { revalidatePath } from 'next/cache';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-    apiVersion: '2026-03-25.dahlia',
+    apiVersion: '2026-06-24.dahlia',
 });
 
 export async function updateOrderStatus(sessionId: string, newStatus: string) {
