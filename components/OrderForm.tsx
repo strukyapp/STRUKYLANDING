@@ -488,14 +488,14 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                             }}
                                         >
                                             <option value="Pop" className="bg-[#1a1a1a]">Pop</option>
-                                            <option value="Reggaetón" className="bg-[#1a1a1a]">Reggaetón</option>
-                                            <option value="Trap" className="bg-[#1a1a1a]">Trap / Urbano</option>
-                                            <option value="Salsa" className="bg-[#1a1a1a]">Salsa</option>
-                                            <option value="Bachata" className="bg-[#1a1a1a]">Bachata</option>
-                                            <option value="Vallenato" className="bg-[#1a1a1a]">Vallenato</option>
-                                            <option value="Regional Mexicano" className="bg-[#1a1a1a]">Regional Mexicano / Banda</option>
-                                            <option value="Ranchera" className="bg-[#1a1a1a]">Ranchera / Mariachi</option>
-                                            <option value="Merengue" className="bg-[#1a1a1a]">Merengue</option>
+                                            <option value="Hip Hop" className="bg-[#1a1a1a]">Hip Hop / Rap</option>
+                                            <option value="Rock" className="bg-[#1a1a1a]">Rock</option>
+                                            <option value="Metal" className="bg-[#1a1a1a]">Metal</option>
+                                            <option value="EDM" className="bg-[#1a1a1a]">{lang === 'es' ? 'Electrónica / EDM' : 'Electronic / EDM'}</option>
+                                            <option value="Country" className="bg-[#1a1a1a]">Country</option>
+                                            <option value="R&B" className="bg-[#1a1a1a]">R&B</option>
+                                            <option value="Reggae" className="bg-[#1a1a1a]">Reggae</option>
+                                            <option value="Folk" className="bg-[#1a1a1a]">{lang === 'es' ? 'Folk / Acústico' : 'Folk / Acoustic'}</option>
                                             <option value="Otro" className="bg-[#1a1a1a]">{lang === 'es' ? 'Otro (Escribir...)' : 'Other (Write...)'}</option>
                                         </select>
 
@@ -511,7 +511,7 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    placeholder={lang === 'es' ? 'Ej: Bolero, Rock, Jazz...' : 'Ex: Bolero, Rock, Jazz...'}
+                                                    placeholder={lang === 'es' ? 'Ej: Blues, Jazz, Disco...' : 'Ex: Blues, Jazz, Disco...'}
                                                     className="w-full bg-transparent border-b border-white/20 py-2 outline-none focus:border-coffee-light transition-all text-sm"
                                                     onChange={e => setFormData({ ...formData, notes: `Género deseado: ${e.target.value}. ${formData.notes}` })}
                                                     required

@@ -78,7 +78,14 @@ export const translations = {
     },
     pricing: {
       title: "Planes de Producción",
+      titleNormal: "Planes de ",
+      titleHighlight: "Producción",
       subtitle: "Selecciona el nivel de acabado que tu música merece. Calidad internacional para el mercado global.",
+      scarcityTitle: "Alta Demanda • Cupos Limitados",
+      scarcityDescNormal: "Debido al alto nivel de detalle que exige cada hit, ",
+      scarcityDescHighlight: "solo podemos aceptar 50 proyectos nuevos por semana",
+      eliteRibbon: "Experiencia Definitiva",
+      proRibbon: "78% de artistas lo eligen",
       popular: "Más Popular",
       guarantee: "Propiedad Intelectual 100% Garantizada por Escrito",
       plans: {
@@ -248,7 +255,14 @@ export const translations = {
     },
     pricing: {
       title: "Production Plans",
+      titleNormal: "Production ",
+      titleHighlight: "Plans",
       subtitle: "Select the finish level your music deserves. International quality for the global market.",
+      scarcityTitle: "High Demand • Limited Spots",
+      scarcityDescNormal: "Due to the high level of detail required for each hit, ",
+      scarcityDescHighlight: "we can only accept 50 new projects per week",
+      eliteRibbon: "Ultimate Experience",
+      proRibbon: "78% of artists choose this",
       popular: "Most Popular",
       guarantee: "Satisfaction guaranteed or we revise for free",
       plans: {

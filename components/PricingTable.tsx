@@ -87,10 +87,10 @@ export default function PricingTable({ onSelectPlan, t }: PricingTableProps) {
                 <div className="px-6 md:px-12 lg:px-24">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter text-white">
-                        Planes de <span className="text-gradient">Producción</span>
+                        {t.titleNormal}<span className="text-gradient">{t.titleHighlight}</span>
                     </h2>
                     <p className="text-gray-400 text-base md:text-xl max-w-xl mx-auto font-medium leading-relaxed">
-                        Selecciona el nivel de acabado que tu música merece. Calidad internacional para el mercado global.
+                        {t.subtitle}
                     </p>
                 </div>
                 {/* VIP Scarcity Banner */}
@@ -100,9 +100,9 @@ export default function PricingTable({ onSelectPlan, t }: PricingTableProps) {
                             <span className="text-lg">⏳</span>
                         </div>
                         <div className="text-center md:text-left">
-                            <h4 className="text-coffee-medium font-black uppercase tracking-widest mb-1 text-xs md:text-sm">Alta Demanda • Cupos Limitados</h4>
+                            <h4 className="text-coffee-medium font-black uppercase tracking-widest mb-1 text-xs md:text-sm">{t.scarcityTitle}</h4>
                             <p className="text-gray-400 text-xs md:text-sm font-medium leading-relaxed">
-                                Debido al alto nivel de detalle que exige cada hit, <strong className="text-white">solo podemos aceptar 50 proyectos nuevos por semana</strong>.
+                                {t.scarcityDescNormal}<strong className="text-white">{t.scarcityDescHighlight}</strong>.
                             </p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ export default function PricingTable({ onSelectPlan, t }: PricingTableProps) {
                             >
                                 {plan.id === 'elite' && (
                                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[9px] font-black italic uppercase tracking-tighter px-6 py-2 rounded-full shadow-2xl z-10 border border-white/20 whitespace-nowrap">
-                                        Experiencia Definitiva
+                                        {t.eliteRibbon}
                                     </div>
                                 )}
 
@@ -145,7 +145,7 @@ export default function PricingTable({ onSelectPlan, t }: PricingTableProps) {
                                     {plan.id === 'pro' && (
                                         <div className="mb-3 flex items-center gap-1">
                                             <span className="text-[10px] text-coffee-medium font-black uppercase tracking-widest animate-pulse">
-                                                78% de artistas lo eligen
+                                                {t.proRibbon}
                                             </span>
                                         </div>
                                     )}
