@@ -22,6 +22,51 @@ const COUNTRIES = [
     { name: 'Rep. Dominicana', code: '+1', flag: '🇩🇴' },
     { name: 'Panamá', code: '+507', flag: '🇵🇦' },
 ];
+const getGenreLabel = (genreValue: string, lang: 'es' | 'en') => {
+    switch (genreValue) {
+        case 'Hip Hop': return lang === 'es' ? 'Hip Hop / Rap' : 'Hip Hop / Rap';
+        case 'EDM': return lang === 'es' ? 'Electrónica / EDM' : 'Electronic / EDM';
+        case 'Folk': return lang === 'es' ? 'Folk / Acústico' : 'Folk / Acoustic';
+        case 'Otro': return lang === 'es' ? 'Otro (Escribir...)' : 'Other (Write...)';
+        default: return genreValue;
+    }
+};
+
+const getVocalistLabel = (vocalistValue: string, lang: 'es' | 'en') => {
+    switch (vocalistValue) {
+        case 'Voz masculina': return lang === 'es' ? 'Voz masculina' : 'Male voice';
+        case 'Voz femenina': return lang === 'es' ? 'Voz femenina' : 'Female voice';
+        case 'Mixta': return lang === 'es' ? 'Mixta (Dúo)' : 'Mixed (Duet)';
+        case 'Me sorprendes tú': return lang === 'es' ? 'Me sorprendes tú' : 'Surprise me';
+        default: return vocalistValue;
+    }
+};
+
+const getMoodLabel = (moodValue: string, lang: 'es' | 'en') => {
+    switch (moodValue) {
+        case 'Feliz': return lang === 'es' ? 'Feliz / Alegre' : 'Happy / Cheerful';
+        case 'Romántico': return lang === 'es' ? 'Romántico / Enamorado' : 'Romantic / Loving';
+        case 'Bailable': return lang === 'es' ? 'Explosivo / Bailable' : 'Energetic / Danceable';
+        case 'Triste': return lang === 'es' ? 'Triste / Melancólico' : 'Sad / Melancholic';
+        case 'Épico': return lang === 'es' ? 'Épico / Motivacional' : 'Epic / Motivational';
+        case 'Urbano': return lang === 'es' ? 'Chulo / Urbano' : 'Cool / Urban';
+        case 'Relajado': return lang === 'es' ? 'Relajado / Chill' : 'Relaxed / Chill';
+        default: return moodValue;
+    }
+};
+
+const getCountryName = (name: string, lang: 'es' | 'en') => {
+    if (lang === 'es') return name;
+    switch (name) {
+        case 'Estados Unidos': return 'United States';
+        case 'España': return 'Spain';
+        case 'México': return 'Mexico';
+        case 'Rep. Dominicana': return 'Dominican Republic';
+        case 'Panamá': return 'Panama';
+        case 'Perú': return 'Peru';
+        default: return name;
+    }
+};
 
 interface OrderFormProps {
     lang: 'es' | 'en';
@@ -346,7 +391,8 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                     phone: `${selectedCountry.code} ${formData.phone}`,
                     metaEventId: eventID,
                     fbp,
-                    fbc
+                    fbc,
+                    lang
                 }),
             });
             const data = await response.json();
@@ -716,13 +762,13 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                                 setFormData({ ...formData, mood: e.target.value });
                                             }}
                                         >
-                                            <option value="Feliz" className="bg-[#1a1a1a]">Feliz / Alegre</option>
-                                            <option value="Romántico" className="bg-[#1a1a1a]">Romántico / Enamorado</option>
-                                            <option value="Bailable" className="bg-[#1a1a1a]">Explosivo / Bailable</option>
-                                            <option value="Triste" className="bg-[#1a1a1a]">Triste / Melancólico</option>
-                                            <option value="Épico" className="bg-[#1a1a1a]">Épico / Motivacional</option>
-                                            <option value="Urbano" className="bg-[#1a1a1a]">Chulo / Urbano</option>
-                                            <option value="Relajado" className="bg-[#1a1a1a]">Relajado / Chill</option>
+                                            <option value="Feliz" className="bg-[#1a1a1a]">{lang === 'es' ? 'Feliz / Alegre' : 'Happy / Cheerful'}</option>
+                                            <option value="Romántico" className="bg-[#1a1a1a]">{lang === 'es' ? 'Romántico / Enamorado' : 'Romantic / Loving'}</option>
+                                            <option value="Bailable" className="bg-[#1a1a1a]">{lang === 'es' ? 'Explosivo / Bailable' : 'Energetic / Danceable'}</option>
+                                            <option value="Triste" className="bg-[#1a1a1a]">{lang === 'es' ? 'Triste / Melancólico' : 'Sad / Melancholic'}</option>
+                                            <option value="Épico" className="bg-[#1a1a1a]">{lang === 'es' ? 'Épico / Motivacional' : 'Epic / Motivational'}</option>
+                                            <option value="Urbano" className="bg-[#1a1a1a]">{lang === 'es' ? 'Chulo / Urbano' : 'Cool / Urban'}</option>
+                                            <option value="Relajado" className="bg-[#1a1a1a]">{lang === 'es' ? 'Relajado / Chill' : 'Relaxed / Chill'}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -878,7 +924,7 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                                         >
                                                             <span className="text-2xl">{country.flag}</span>
                                                             <div className="flex flex-col">
-                                                                <span className="text-xs font-black text-white group-hover:text-[#dcfc44] transition-colors">{country.name}</span>
+                                                                <span className="text-xs font-black text-white group-hover:text-[#dcfc44] transition-colors">{getCountryName(country.name, lang)}</span>
                                                                 <span className="text-[10px] text-gray-500 font-bold">{country.code}</span>
                                                             </div>
                                                         </button>
@@ -887,10 +933,10 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                             )}
                                         </div>
                                         <div className="min-w-0">
-                                            <label className="block text-xs font-black text-gray-200 mb-4 uppercase tracking-[0.2em] md:h-10 flex items-center">Email de entrega</label>
+                                            <label className="block text-xs font-black text-gray-200 mb-4 uppercase tracking-[0.2em] md:h-10 flex items-center">{lang === 'es' ? 'Email de entrega' : 'Delivery Email'}</label>
                                             <input
                                                 type="email"
-                                                placeholder="tu@email.com"
+                                                placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
                                                 className="w-full bg-white/5 border border-white/20 rounded-2xl px-6 py-4 focus:border-[#dcfc44] focus:bg-white/10 transition-all outline-none text-white text-lg font-bold placeholder:text-gray-600"
                                                 value={formData.email}
                                                 onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -1026,34 +1072,36 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
 
                                     <div className="grid md:grid-cols-2 gap-8 mb-8">
                                         <div className="space-y-4">
-                                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest border-b border-white/10 pb-2">Información del Artista</h4>
+                                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest border-b border-white/10 pb-2">{lang === 'es' ? 'Información del Artista' : 'Artist Information'}</h4>
                                             <div className="grid gap-3">
                                                 <div>
-                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Artista / Cliente</p>
+                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{lang === 'es' ? 'Artista / Cliente' : 'Artist / Client'}</p>
                                                     <p className="text-xs text-white font-bold">{formData.name || '-'}</p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Género</p>
-                                                    <p className="text-xs text-white font-bold">{formData.genre}</p>
+                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{lang === 'es' ? 'Género' : 'Genre'}</p>
+                                                    <p className="text-xs text-white font-bold">{getGenreLabel(formData.genre, lang)}</p>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="space-y-4">
-                                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest border-b border-white/10 pb-2">Especificaciones Creativas</h4>
+                                            <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-widest border-b border-white/10 pb-2">{lang === 'es' ? 'Especificaciones Creativas' : 'Creative Specifications'}</h4>
                                             <div className="grid grid-cols-2 gap-3">
                                                 <div>
-                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Preferencia de Voz</p>
-                                                    <p className="text-xs text-white font-bold">{formData.vocalist}</p>
+                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{lang === 'es' ? 'Preferencia de Voz' : 'Voice Preference'}</p>
+                                                    <p className="text-xs text-white font-bold">{getVocalistLabel(formData.vocalist, lang)}</p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Sentimiento</p>
-                                                    <p className="text-xs text-white font-bold">{formData.mood}</p>
+                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{lang === 'es' ? 'Sentimiento' : 'Mood'}</p>
+                                                    <p className="text-xs text-white font-bold">{getMoodLabel(formData.mood, lang)}</p>
                                                 </div>
                                                 <div className="col-span-2">
-                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Entrega Estimada</p>
+                                                    <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{lang === 'es' ? 'Entrega Estimada' : 'Estimated Delivery'}</p>
                                                     <p className="text-xs text-coffee-light font-bold uppercase">
-                                                        {formData.plan === 'elite' || formData.plan === 'premium' ? '24 HORAS' : '24-48 HORAS'}
+                                                        {formData.plan === 'elite' || formData.plan === 'premium' 
+                                                            ? (lang === 'es' ? '24 HORAS' : '24 HOURS') 
+                                                            : (lang === 'es' ? '24-48 HORAS' : '24-48 HOURS')}
                                                     </p>
                                                 </div>
                                             </div>
@@ -1064,19 +1112,21 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                         <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
                                         <div className="text-[10px] text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                                             <div className="w-1 h-1 rounded-full bg-coffee-medium"></div>
-                                            Versos Confirmados
+                                            {lang === 'es' ? 'Versos Confirmados' : 'Confirmed Lyrics'}
                                         </div>
                                         <p className="text-xs text-gray-300 italic line-clamp-3 leading-relaxed">
-                                            "{formData.lyrics || 'Sin letra proporcionada'}"
+                                            "{formData.lyrics || (lang === 'es' ? 'Sin letra proporcionada' : 'No lyrics provided')}"
                                         </p>
                                     </div>
 
                                     <div className="flex flex-wrap gap-4 justify-center">
                                         {[
-                                            'Producción por Humanos + IA',
-                                            'Derechos de Autoría 100% (Legal)',
-                                            formData.plan !== 'starter' ? 'Video Obsequio Incluido' : 'Audio en Alta Calidad',
-                                            'Certificado de Propiedad'
+                                            lang === 'es' ? 'Producción por Humanos + IA' : 'Production by Humans + AI',
+                                            lang === 'es' ? 'Derechos de Autoría 100% (Legal)' : '100% Copyright Ownership (Legal)',
+                                            formData.plan !== 'starter' 
+                                                ? (lang === 'es' ? 'Video Obsequio Incluido' : 'Bonus Video Included') 
+                                                : (lang === 'es' ? 'Audio en Alta Calidad' : 'High Quality Audio'),
+                                            lang === 'es' ? 'Certificado de Propiedad' : 'Certificate of Ownership'
                                         ].map(check => (
                                             <div key={check} className="flex items-center gap-2 text-[10px] text-gray-300 font-bold uppercase">
                                                 <Check className="w-3 h-3 text-coffee-medium" />
@@ -1111,7 +1161,9 @@ export default function OrderForm({ lang, initialPlan }: OrderFormProps) {
                                         </div>
                                         <div className="text-left">
                                             <p className="text-white font-black text-sm uppercase italic tracking-tight">
-                                                {formData.plan === 'elite' || formData.plan === 'premium' ? '24 HORAS' : '24-48 HORAS'}
+                                                {formData.plan === 'elite' || formData.plan === 'premium' 
+                                                    ? (lang === 'es' ? '24 HORAS' : '24 HOURS') 
+                                                    : (lang === 'es' ? '24-48 HORAS' : '24-48 HOURS')}
                                             </p>
                                             <div className="text-sm font-black text-white uppercase tracking-widest mb-1">{lang === 'es' ? 'Garantía Estándar Struky' : 'Struky Standard Guarantee'}</div>
                                             <div className="text-xs text-gray-300 leading-tight uppercase tracking-wider font-medium">{lang === 'es' ? 'Tu inversión está protegida. Calidad garantizada o revisamos hasta que ames tu canción.' : 'Your investment is protected. Guaranteed quality or we revise until you love your song.'}</div>
